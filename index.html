@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <title>Rock, paper, scissors</title>
+</head>
+<body>
+    <script>
+        function computerPlay() {
+            let randomNumber = Math.floor(Math.random() * 3);
+            let selection;
+
+            switch(randomNumber) {
+                case 0:
+                    selection = "rock";
+                    break;
+                case 1:
+                    selection = "paper";
+                    break;
+                case 2:
+                    selection = "scissors";
+                    break;
+            }
+            return selection;
+        }
+
+        function round() {
+            let playerChoice = prompt("Which one do you pick: rock, paper or scissors?");
+            let playerSelection = playerChoice.toLowerCase();
+            let computerSelection = computerPlay();
+
+            if (playerSelection == computerSelection) {
+                let result = 0;
+                console.log("It's a draw! You both picked the same choice.");
+            }
+            else if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper")) {
+                let result = 1;
+                console.log ("You win, " + playerSelection + " beats " + computerSelection + " !");
+            }
+            else if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+                console.log ("You made an unclear gesture, please try again.");
+                let result = false;
+            }
+            else {
+                let result = -1;
+                console.log ("You lose, " + computerSelection + " beats " + playerSelection + " !");
+            }
+            return playerSelection;
+        }
+    </script>
+</body>
