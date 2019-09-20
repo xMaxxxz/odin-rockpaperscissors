@@ -5,10 +5,12 @@
 <body>
     <script>
         function computerPlay() {
-            let randomNumber = Math.floor(Math.random() * 3); //Random integer from 0 to 2
+            //Random integer from 0 to 2
+            let randomNumber = Math.floor(Math.random() * 3);
             let selection;
 
-            switch(randomNumber) { //Random computer selection
+            //Random computer selection
+            switch(randomNumber) {
                 case 0:
                     selection = "rock";
                     break;
@@ -32,16 +34,14 @@
             if (playerSelection === computerSelection) {
                 result = 0;
                 console.log("It's a draw! You both picked the same choice.");
-            }
-            else if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper")) {
+            } else if ((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || 
+                    (playerSelection === "scissors" && computerSelection === "paper")) {
                 result = 1;
                 console.log ("You win, " + playerSelection + " beats " + computerSelection + " !");
-            }
-            else if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+            } else if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
                 console.log ("You made an unclear gesture, please try again.");
                 result = false;
-            }
-            else {
+            } else {
                 result = -1;
                 console.log ("You lose, " + computerSelection + " beats " + playerSelection + " !");
             }
@@ -55,19 +55,25 @@
                 round();
                 if (result === 1) {
                     amountWon++;
-                    console.log("The score is now " + amountWon + "-" +  amountLost);
-                }
-                else if (result === -1) {
+                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
+                } else if (result === -1) {
                     amountLost++;
-                    console.log("The score is now " + amountWon + "-" +  amountLost);
-                }
-                else {
-                    console.log("The score is now " + amountWon + "-" +  amountLost);
+                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
+                } else {
+                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
                 }
             }
+            
+            if (amountWon === 3) {
+                console.log("Congratulations, you are victorious!")
+            } else {
+                console.log("You have lost the game, better luck next time!")
+            }
+
             console.log("Thanks for playing!")
         }
 
-        console.log("Welcome, type game() to play.") //Welcome message on startup
+        //Welcome message on startup
+        console.log("Welcome, type game() to play.") 
     </script>
 </body>
