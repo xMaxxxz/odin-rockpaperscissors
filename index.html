@@ -1,79 +1,141 @@
 <!DOCTYPE html>
 <head>
     <title>Rock, paper, scissors</title>
+    <link rel="stylesheet" type="text/css" href="./main.css">
 </head>
 <body>
+    <div id="container">
+        <p id="outcome">Welcome! Ready to play?</p>
+        <p id="score"></p>
+        <div id="selection">
+            <img id="rock" src="./images/rock.png">
+            <img id="paper" src="./images/paper.jpeg">
+            <img id="scissors" src="./images/scissors.jpeg">
+        </div>
+        <div id="computer">
+            <img id="rockC" src="./images/rock.png">
+            <img id="paperC" src="./images/paper.jpeg">
+            <img id="scissorsC" src="./images/scissors.jpeg">
+        </div>
+    </div>
+
     <script>
+
+        //Computer selection (GUI)
+        let rockC = document.querySelector("#rockC");
+        let paperC = document.querySelector("#paperC");
+        let scissorsC = document.querySelector("#scissorsC");
+
+        //Makes the icons appear faded, except for the selected one (computer)
+        function fadeC (excluded) {
+            rockC.classList.add("fade");
+            paperC.classList.add("fade");
+            scissorsC.classList.add("fade");
+            excluded.classList.remove("fade");
+        }
+
         function computerPlay() {
             //Random integer from 0 to 2
             let randomNumber = Math.floor(Math.random() * 3);
             let selection;
-
             //Random computer selection
             switch(randomNumber) {
                 case 0:
                     selection = "rock";
+                    fadeC(rockC);
                     break;
                 case 1:
                     selection = "paper";
+                    fadeC(paperC);
                     break;
                 case 2:
                     selection = "scissors";
+                    fadeC(scissorsC);
                     break;
             }
             return selection;
         }
 
-        function round() {
-            //Paramaters to play
-            let playerChoice = prompt("Which one do you pick: rock, paper or scissors?");
-            let playerSelection = playerChoice.toLowerCase();
+        //Player selection (GUI)
+        let rock = document.querySelector("#rock");
+        let paper = document.querySelector("#paper");
+        let scissors = document.querySelector("#scissors");
+
+        //Makes the icons appear faded, except for the selected one (player)
+        function fade (excluded) {
+            rock.classList.add("fade");
+            paper.classList.add("fade");
+            scissors.classList.add("fade");
+            excluded.classList.remove("fade");
+        }
+
+        let clickedIcon;
+        rock.addEventListener("click", () => {
+            clickedIcon = "rock";
+            fade(rock);
+            game();
+        })
+        paper.addEventListener("click", () => {
+            clickedIcon = "paper";
+            fade(paper);
+            game();
+        })
+        scissors.addEventListener("click", () => {
+            clickedIcon = "scissors";
+            fade(scissors);
+            game();
+        })
+
+        //Initializing startup score and message
+        let para = document.querySelector("#outcome");
+        let score = document.querySelector("#score");
+        let amountWon = 0;
+        let amountLost = 0;
+
+        function game() {
+            //Parameters to play
+            let playerSelection = clickedIcon;
             let computerSelection = computerPlay();
+            let result;
+            score.classList.remove("endmessage");
             
             //Actual round
             if (playerSelection === computerSelection) {
                 result = 0;
-                console.log("It's a draw! You both picked the same choice.");
+                para.textContent = "It's a draw! You both picked the same choice.";
             } else if ((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || 
                     (playerSelection === "scissors" && computerSelection === "paper")) {
                 result = 1;
-                console.log ("You win, " + playerSelection + " beats " + computerSelection + " !");
-            } else if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-                console.log ("You made an unclear gesture, please try again.");
-                result = false;
+                para.textContent = "You win, " + playerSelection + " beats " + computerSelection + " !";
             } else {
                 result = -1;
-                console.log ("You lose, " + computerSelection + " beats " + playerSelection + " !");
+                para.textContent = "You lose, " + computerSelection + " beats " + playerSelection + " !";
             }
-            return result;
-        }
 
-        function game() {
-            let amountWon = 0;
-            let amountLost = 0;
-            while (amountWon < 3 && amountLost < 3) {
-                round();
-                if (result === 1) {
-                    amountWon++;
-                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
-                } else if (result === -1) {
-                    amountLost++;
-                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
-                } else {
-                    console.log("The score is now " + amountWon + "-" +  amountLost + ".");
-                }
+            //Score calculation
+
+            if (result === 1) {
+                amountWon++;
+                score.textContent = "The score is now " + amountWon + "-" +  amountLost + ".";
+            } else if (result === -1) {
+                amountLost++;
+                score.textContent = "The score is now " + amountWon + "-" +  amountLost + ".";
+            } else {
+                score.textContent = "The score is now " + amountWon + "-" +  amountLost + ".";
             }
             
             if (amountWon === 3) {
-                console.log("Congratulations, you are victorious!")
+                score.textContent = "The final score is " + amountWon + "-" + amountLost + ". Congratulations, you are victorious!";
+                score.classList.add("endmessage");
+                amountWon = 0;
+                amountLost = 0;
+            } else if (amountLost === 3) {
+                score.textContent = "The final score is " + amountWon + "-" + amountLost + ". You have lost the game, better luck next time!";
+                score.classList.add("endmessage");
+                amountWon = 0;
+                amountLost = 0;
             } else {
-                console.log("You have lost the game, better luck next time!")
             }
-
-            console.log("Thanks for playing!")
-        }
-
-        //Welcome message on startup
-        console.log("Welcome, type game() to play.") 
+        } 
     </script>
 </body>
