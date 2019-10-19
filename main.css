@@ -1,42 +1,58 @@
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 p {
     text-align: center;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .endmessage {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
 }
 
 #selection {
-    max-width: 25%;
-    max-height: 100%;
-    margin-top: 50px;
-    margin-left: 10%;
+    width: 20%;
+    height: 60%;
+    margin-top: 7%;
+    margin-left: 7%;
     display: inline-block;
 }
 
 #computer {
-    max-width: 25%;
-    max-height: 100%;
-    margin-top: 50px;
-    margin-right: 10%;
+    width: 20%;
+    margin-top: 7%;
+    margin-right: 7%;
     float: right;
 }
 
 img {
     width: 50%;
-    margin: 30px;
+    margin: 7%;
     text-align: center;
+}
+
+#computer img {
+    float: right;
 }
 
 .fade {
     opacity: 0.25;
+}
+
+@media only screen and (max-width: 620px) {
+
+    p {
+        font-size: 20px;
+    }
+
+    .endmessage {
+        font-size: 30px;
+    }
+
 }
